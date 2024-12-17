@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연말정산 환급금 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>연말정산 환급금 계산기</h1>
+    <div class="container">
+        <label for="annualIncome">총 급여 (원):</label>
+        <input type="number" id="annualIncome" placeholder="예: 50000000">
+
+        <label for="taxPaid">납부한 세금 (원):</label>
+        <input type="number" id="taxPaid" placeholder="예: 5000000">
+
+        <label for="taxDeduction">세액 공제 금액 (원):</label>
+        <input type="number" id="taxDeduction" placeholder="예: 4000000">
+
+        <button onclick="calculateRefund()">환급금 계산하기</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateRefund() {
+            const annualIncome = parseFloat(document.getElementById('annualIncome').value) || 0;
+            const taxPaid = parseFloat(document.getElementById('taxPaid').value) || 0;
+            const taxDeduction = parseFloat(document.getElementById('taxDeduction').value) || 0;
+
+            if (annualIncome <= 0 || taxPaid < 0 || taxDeduction < 0) {
+                document.getElementById('result').innerText = "올바른 값을 입력해주세요.";
+                return;
+            }
+
+            const expectedTax = taxPaid - taxDeduction;
+            const refundAmount = taxPaid - expectedTax;
+
+            document.getElementById('result').innerHTML = `<strong>예상 환급금: ${refundAmount.toLocaleString()} 원</strong>`;
+        }
+    </script>
+</body>
+</html>
